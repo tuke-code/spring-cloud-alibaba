@@ -14,25 +14,37 @@
  * limitations under the License.
  */
 
-package com.alibaba.cloud.ai.tongyi.aot;
+package com.alibaba.cloud.ai.tongyi;
 
-import org.springframework.aot.hint.RuntimeHints;
-import org.springframework.aot.hint.RuntimeHintsRegistrar;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * The TongYiRuntimeHints class is responsible for registering runtime hints for TongYiAI.
+ * TongYi connection API properties.
  *
  * @author yuluo
- * @since 2023.0.0.0
+ * @author <a href="mailto:yuluo08290126@gmail.com">yuluo</a>
+ * @since 2023.0.0.0-RC1
  */
 
-public class TongYiRuntimeHints implements RuntimeHintsRegistrar {
+@ConfigurationProperties(TongYiConnectionProperties.CONFIG_PREFIX)
+public class TongYiConnectionProperties {
 
-	@Override
-	public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
+	/**
+	 * Spring Cloud Alibaba AI configuration prefix.
+	 */
+	public static final String CONFIG_PREFIX = "spring.cloud.ai.tongyi";
 
-		// todo
+	/**
+	 * API key.
 
+	 */
+	private String apiKey;
+
+	public String getApiKey() {
+		return apiKey;
 	}
 
+	public void setApiKey(String apiKey) {
+		this.apiKey = apiKey;
+	}
 }

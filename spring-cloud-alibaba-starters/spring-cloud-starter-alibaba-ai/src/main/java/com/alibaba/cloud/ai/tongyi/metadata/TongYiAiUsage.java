@@ -26,7 +26,8 @@ import org.springframework.util.Assert;
  * {@link Usage} implementation for {@literal Alibaba DashScope}.
  *
  * @author yuluo
- * @since 2023.0.0.0
+ * @author <a href="mailto:yuluo08290126@gmail.com">yuluo</a>
+ * @since 2023.0.0.0-RC1
  */
 
 public class TongYiAiUsage implements Usage {
@@ -57,21 +58,25 @@ public class TongYiAiUsage implements Usage {
 
 	@Override
 	public Long getPromptTokens() {
-		return null;
+
+		throw new UnsupportedOperationException("Unimplemented method 'getPromptTokens'");
 	}
 
 	@Override
 	public Long getGenerationTokens() {
+
 		return this.getUsage().getOutputTokens().longValue();
 	}
 
 	@Override
 	public Long getTotalTokens() {
-		return this.getUsage().getInputTokens().longValue() + this.getUsage().getInputTokens().longValue();
+
+		return this.getUsage().getTotalTokens().longValue();
 	}
 
 	@Override
 	public String toString() {
+
 		return this.getUsage().toString();
 	}
 }

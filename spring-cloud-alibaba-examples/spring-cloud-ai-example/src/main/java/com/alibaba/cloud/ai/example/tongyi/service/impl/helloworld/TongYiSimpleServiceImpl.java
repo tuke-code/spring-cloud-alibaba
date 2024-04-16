@@ -14,57 +14,56 @@
  * limitations under the License.
  */
 
-package com.alibaba.cloud.ai.example.tongyi.service.impl;
+package com.alibaba.cloud.ai.example.tongyi.service.impl.helloworld;
 
 import java.util.Map;
 
+import com.alibaba.cloud.ai.example.tongyi.service.AbstractTongYiServiceImpl;
 import com.alibaba.cloud.ai.example.tongyi.service.TongYiService;
-import com.alibaba.dashscope.common.Message;
-import com.alibaba.dashscope.common.MessageManager;
-import com.alibaba.dashscope.common.Role;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Flux;
 
 import org.springframework.ai.chat.ChatClient;
 import org.springframework.ai.chat.StreamingChatClient;
+import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
+ * Simple example.
+ * There is optional message parameter whose default value is "Tell me a joke". pl The response to the request is from the TongYi models Service.
+ *
  * @author yuluo
- * @since 2023.0.0.0
+ * @author <a href="mailto:yuluo08290126@gmail.com">yuluo</a>
+ * @since 2023.0.0.0-RC1
  */
 
 @Slf4j
 @Service
-public class TongYiServiceImpl implements TongYiService {
+public class TongYiSimpleServiceImpl extends AbstractTongYiServiceImpl {
 
-	@Resource
-	private MessageManager msgManager;
+	private static final Logger logger = LoggerFactory.getLogger(TongYiService.class);
 
 	private final ChatClient chatClient;
 
 	private final StreamingChatClient streamingChatClient;
 
 	@Autowired
-	public TongYiServiceImpl(ChatClient chatClient, StreamingChatClient streamingChatClient) {
+	public TongYiSimpleServiceImpl(ChatClient chatClient, StreamingChatClient streamingChatClient) {
 
 		this.chatClient = chatClient;
 		this.streamingChatClient = streamingChatClient;
 	}
 
 	@Override
-	public Map<String, String> completion(String message) {
+	public String completion(String message) {
 
-		Message userMsg = Message.builder()
-				.role(Role.USER.getValue())
-				.content(message)
-				.build();
-		msgManager.add(userMsg);
+		Prompt prompt = new Prompt(new UserMessage(message));
 
-		return Map.of(message, chatClient.call(message));
+		return chatClient.call(prompt).getResult().getOutput().getContent();
 	}
 
 	@Override

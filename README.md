@@ -75,7 +75,7 @@ These artifacts are available from Maven Central and Spring Release repository v
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-            <version>2023.0.0.0</version>
+            <version>2023.0.0.1-RC2</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -113,7 +113,7 @@ As the interfaces and annotations of Spring Boot 1 and Spring Boot 2 have been c
 * 2023.x for Spring Boot 3.2.x
 
 ## Code of Conduct
-This project is a sub-project of Spring Cloud, it adheres to the Contributor Covenant [code of conduct](https://github.com/spring-cloud/spring-cloud-build/blob/master/docs/src/main/asciidoc/code-of-conduct.adoc). By participating, you are expected to uphold this code. Please report unacceptable behavior to spring-code-of-conduct@pivotal.io.
+This project is a sub-project of Spring Cloud, it adheres to the Contributor Covenant [code of conduct](https://sca.aliyun.com/en-us/community/developer/contributor-guide/new-contributor-guide_dev/). By participating, you are expected to uphold this code. Please report unacceptable behavior to spring-code-of-conduct@pivotal.io.
 
 ## Code Conventions and Housekeeping
 None of these is essential for a pull request, but they will all help. They can also be added after the original pull request but before a merge.

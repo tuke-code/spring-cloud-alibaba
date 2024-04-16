@@ -18,17 +18,17 @@
     <description>Spring Cloud Alibaba Dependencies</description>
 
     <properties>
-        <revision>2023.0.0.0-RC1</revision>
+        <revision>2023.0.0.1-RC2</revision>
         <sentinel.version>1.8.6</sentinel.version>
-        <nacos.client.version>2.3.0</nacos.client.version>
+        <nacos.client.version>2.3.2</nacos.client.version>
         <seata.version>2.0.0</seata.version>
         <spring.context.support.version>1.0.11</spring.context.support.version>
         <!-- Apache RocketMQ -->
         <rocketmq.version>5.1.4</rocketmq.version>
 
         <!-- Spring AI -->
-        <spring.ai.version>0.8.0</spring.ai.version>
-        <dashscope-sdk-java.version>2.10.1</dashscope-sdk-java.version>
+        <spring.ai.version>0.8.1</spring.ai.version>
+        <dashscope-sdk-java.version>2.12.0</dashscope-sdk-java.version>
 
         <!-- Maven Plugin Versions -->
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
@@ -265,6 +265,13 @@
             </dependency>
 
             <!-- Testing Dependencies -->
+            <dependency>
+                <groupId>org.springframework.ai</groupId>
+                <artifactId>spring-ai-test</artifactId>
+                <version>${spring.ai.version}</version>
+                <scope>test</scope>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

@@ -16,27 +16,51 @@
 
 package com.alibaba.cloud.ai.tongyi;
 
-import com.alibaba.cloud.ai.tongyi.client.TongYiChatClient;
-import com.alibaba.cloud.ai.tongyi.constant.TongYiConstants;
-import com.alibaba.dashscope.aigc.generation.Generation;
-import com.alibaba.dashscope.common.Message;
-import com.alibaba.dashscope.common.MessageManager;
+import java.util.Objects;
 
+import com.alibaba.cloud.ai.tongyi.audio.TongYiAudioSpeechClient;
+import com.alibaba.cloud.ai.tongyi.audio.TongYiAudioSpeechProperties;
+import com.alibaba.cloud.ai.tongyi.chat.TongYiChatClient;
+import com.alibaba.cloud.ai.tongyi.chat.TongYiChatProperties;
+import com.alibaba.cloud.ai.tongyi.exception.TongYiException;
+import com.alibaba.cloud.ai.tongyi.image.TongYiImagesClient;
+import com.alibaba.cloud.ai.tongyi.image.TongYiImagesProperties;
+import com.alibaba.dashscope.aigc.generation.Generation;
+import com.alibaba.dashscope.aigc.imagesynthesis.ImageSynthesis;
+import com.alibaba.dashscope.audio.tts.SpeechSynthesizer;
+import com.alibaba.dashscope.common.MessageManager;
+import com.alibaba.dashscope.exception.NoApiKeyException;
+import com.alibaba.dashscope.utils.ApiKey;
+import com.alibaba.dashscope.utils.Constants;
+
+import org.springframework.ai.model.function.FunctionCallbackContext;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 /**
  * @author yuluo
- * @since 2023.0.0.0
+ * @author <a href="mailto:yuluo08290126@gmail.com">yuluo</a>
+ * @since 2023.0.0.0-RC1
  */
 
 @AutoConfiguration
-@ConditionalOnClass({TongYiChatClient.class, MessageManager.class})
-@EnableConfigurationProperties(TongYiChatProperties.class)
+@ConditionalOnClass({
+		MessageManager.class,
+		TongYiChatClient.class,
+		TongYiImagesClient.class,
+		TongYiAudioSpeechClient.class
+})
+@EnableConfigurationProperties({
+		TongYiChatProperties.class,
+		TongYiImagesProperties.class,
+		TongYiAudioSpeechProperties.class,
+		TongYiConnectionProperties.class
+})
 public class TongYiAutoConfiguration {
 
 	@Bean
@@ -48,17 +72,33 @@ public class TongYiAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public MessageManager msgManager(TongYiChatProperties chatProperties) {
-
-		MessageManager messageManager = new MessageManager(10);
-		messageManager.add(
-				Message.builder()
-						.role(TongYiConstants.Role.SYSTEM)
-						.content(chatProperties.getOptions().getSystemUser())
-						.build()
-		);
+	public MessageManager msgManager() {
 
 		return new MessageManager(10);
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public ImageSynthesis imageSynthesis() {
+
+		return new ImageSynthesis();
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public SpeechSynthesizer speechSynthesizer() {
+
+		return new SpeechSynthesizer();
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public FunctionCallbackContext springAiFunctionManager(ApplicationContext context) {
+
+		FunctionCallbackContext manager = new FunctionCallbackContext();
+		manager.setApplicationContext(context);
+
+		return manager;
 	}
 
 	@Bean
@@ -68,9 +108,74 @@ public class TongYiAutoConfiguration {
 			havingValue = "true",
 			matchIfMissing = true
 	)
-	public TongYiChatClient tongYiChatClient(Generation generation, TongYiChatProperties chatOptions) {
+	public TongYiChatClient tongYiChatClient(Generation generation,
+			TongYiChatProperties chatOptions,
+			TongYiConnectionProperties connectionProperties
+	) {
 
+		settingApiKey(connectionProperties);
 		return new TongYiChatClient(generation, chatOptions.getOptions());
+	}
+
+	@Bean
+	@ConditionalOnProperty(
+			prefix = TongYiImagesProperties.CONFIG_PREFIX,
+			name = "enabled",
+			havingValue = "true",
+			matchIfMissing = true
+	)
+	public TongYiImagesClient tongYiImagesClient(
+			ImageSynthesis imageSynthesis,
+			TongYiImagesProperties imagesOptions,
+			TongYiConnectionProperties connectionProperties
+	) {
+
+		settingApiKey(connectionProperties);
+
+		return new TongYiImagesClient(imageSynthesis, imagesOptions.getOptions());
+	}
+
+	@Bean
+	@ConditionalOnProperty(
+			prefix = TongYiAudioSpeechProperties.CONFIG_PREFIX,
+			name = "enabled",
+			havingValue = "true",
+			matchIfMissing = true
+	)
+	public TongYiAudioSpeechClient tongYiAudioSpeechClient(
+			SpeechSynthesizer speechSynthesizer,
+			TongYiAudioSpeechProperties speechProperties,
+			TongYiConnectionProperties connectionProperties
+	) {
+
+		settingApiKey(connectionProperties);
+
+		return new TongYiAudioSpeechClient(speechSynthesizer, speechProperties.getOptions());
+	}
+
+	/**
+	 * Setting the API key.
+	 * @param connectionProperties {@link TongYiConnectionProperties}
+	 */
+	public void settingApiKey(TongYiConnectionProperties connectionProperties) {
+
+		String apiKey;
+
+		try {
+			if (Objects.nonNull(connectionProperties.getApiKey())) {
+				apiKey = connectionProperties.getApiKey();
+			}
+			else {
+				apiKey = ApiKey.getApiKey(null);
+			}
+
+			Constants.apiKey = apiKey;
+		}
+		catch (NoApiKeyException e) {
+
+			throw new TongYiException(e.getMessage());
+		}
+
 	}
 
 }
