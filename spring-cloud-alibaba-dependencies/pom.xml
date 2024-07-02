@@ -19,7 +19,7 @@
 
     <properties>
         <revision>2022.0.0.0</revision>
-        <sentinel.version>1.8.6</sentinel.version>
+        <sentinel.version>1.8.8</sentinel.version>
         <seata.version>1.8.0</seata.version>
         <nacos.client.version>2.2.3</nacos.client.version>
         <spring.context.support.version>1.0.11</spring.context.support.version>
@@ -145,7 +145,7 @@
 
             <dependency>
                 <groupId>com.alibaba.csp</groupId>
-                <artifactId>sentinel-spring-webmvc-6x-adapter</artifactId>
+                <artifactId>sentinel-spring-webmvc-v6x-adapter</artifactId>
                 <version>${sentinel.version}</version>
             </dependency>
 
