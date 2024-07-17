@@ -51,3 +51,7 @@ Spring Cloud Alibaba is also actively exploring in the direction of Proxyless, a
 ## Exploration in the direction of RPC
 
 Spring Cloud Alibaba RPC components mainly rely on OpenFeign, RestTemplate, etc. The community plans to further enhance the community's RPC component capabilities by joining GRPC, Dubbo's RPC solution.
+
+## Distributed task scheduling
+
+Spring Cloud Alibaba lacks support for distributed scheduling tasks, the community plans to improve this part of the ability by adapting open source distributed task scheduling framework.
