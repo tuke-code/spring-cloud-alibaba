@@ -121,7 +121,7 @@ private Message getSystemMessage(List<Document> similarDocuments) {
 
 ## 5. 运行并验证
 
-您可以通过启动 SprigBoot 主类，之后使用浏览器访问：
+您可以通过启动 SpringBoot 主类，之后使用浏览器访问：
 
 ```shell
 # 参数为 prompt，默认值为：What ber pairs well with smoked meats?"
