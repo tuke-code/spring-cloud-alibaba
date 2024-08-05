@@ -202,7 +202,7 @@ seata:
       username: nacos
       password: nacos
       context-path:
-      data-id: seataServer.properties
+      data-id: seata.properties
       ##if use MSE Nacos with auth, mutex with username/password attribute
       #access-key:
       #secret-key:
