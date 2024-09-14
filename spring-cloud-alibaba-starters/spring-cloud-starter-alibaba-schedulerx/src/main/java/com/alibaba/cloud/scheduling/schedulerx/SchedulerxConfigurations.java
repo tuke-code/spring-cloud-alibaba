@@ -114,7 +114,7 @@ public class SchedulerxConfigurations {
 			schedulerxWorker.setAkkaRemotingAutoRecover(properties.isAkkaRemotingAutoRecover());
 			schedulerxWorker.setEnableHeartbeatLog(properties.isEnableHeartbeatLog());
 			schedulerxWorker.setMapMasterStatusCheckInterval(properties.getMapMasterStatusCheckInterval());
-			schedulerxWorker.setEnableSecondDelayCycleIntervalMs(properties.isEnableSecondDealyCycleIntervalMs());
+			schedulerxWorker.setEnableSecondDelayCycleIntervalMs(properties.isEnableSecondDelayCycleIntervalMs());
 			schedulerxWorker.setEnableMapMasterFailover(properties.isEnableMapMasterFailover());
 			schedulerxWorker.setEnableSecondDelayStandaloneDispatch(properties.isEnableSecondDelayStandaloneDispatch());
 			schedulerxWorker.setPageSize(properties.getPageSize());

@@ -209,9 +209,9 @@ public class SchedulerxProperties implements InitializingBean {
 	private int mapMasterStatusCheckInterval = WorkerConstants.Map_MASTER_STATUS_CHECK_INTERVAL_DEFAULT;
 
 	/**
-	 * enableSecondDealyCycleIntervalMs.
+	 * enableSecondDelayCycleIntervalMs.
 	 */
-	private boolean enableSecondDealyCycleIntervalMs = false;
+	private boolean enableSecondDelayCycleIntervalMs = false;
 
 	/**
 	 * enableMapMasterFailover.
@@ -587,12 +587,12 @@ public class SchedulerxProperties implements InitializingBean {
 		this.mapMasterStatusCheckInterval = mapMasterStatusCheckInterval;
 	}
 
-	public boolean isEnableSecondDealyCycleIntervalMs() {
-		return enableSecondDealyCycleIntervalMs;
+	public boolean isEnableSecondDelayCycleIntervalMs() {
+		return enableSecondDelayCycleIntervalMs;
 	}
 
-	public void setEnableSecondDealyCycleIntervalMs(boolean enableSecondDealyCycleIntervalMs) {
-		this.enableSecondDealyCycleIntervalMs = enableSecondDealyCycleIntervalMs;
+	public void setEnableSecondDelayCycleIntervalMs(boolean enableSecondDelayCycleIntervalMs) {
+		this.enableSecondDelayCycleIntervalMs = enableSecondDelayCycleIntervalMs;
 	}
 
 	public boolean isEnableMapMasterFailover() {
