@@ -14,7 +14,7 @@ Spring Cloud Alibaba 致力于提供微服务开发的一站式解决方案。�
 
 参考文档 请查看 [WIKI](https://github.com/alibaba/spring-cloud-alibaba/wiki) 。
 
-为 Spring Cloud Alibaba 贡献代码请参考 [如何贡献](https://sca.aliyun.com/zh-cn/community/developer/contributor-guide/new-contributor-guide_dev/) 。
+为 Spring Cloud Alibaba 贡献代码请参考 [如何贡献](https://sca.aliyun.com/docs/developer/contributor-guide/new-contributor-guide_dev/) 。
 
 ## 主要功能
 
