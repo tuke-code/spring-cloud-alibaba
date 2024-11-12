@@ -23,7 +23,7 @@
         <nacos.client.version>2.4.2</nacos.client.version>
         <seata.version>2.1.0</seata.version>
         <!-- Apache RocketMQ -->
-        <rocketmq.version>5.1.4</rocketmq.version>
+        <rocketmq.version>5.3.1</rocketmq.version>
 
         <!-- Spring AI -->
         <spring.ai.version>1.0.0-M1</spring.ai.version>
