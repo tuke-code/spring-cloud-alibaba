@@ -28,7 +28,7 @@ import java.lang.annotation.Target;
  * @author shiyiyue1102
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD})
+@Target({ElementType.FIELD, ElementType.TYPE, ElementType.METHOD})
 @Documented
 public @interface NacosConfig {
 
