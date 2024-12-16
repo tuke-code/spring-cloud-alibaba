@@ -89,7 +89,7 @@ public class NacosConfigDataLocationResolverTest {
 
 		String prefix = NacosPropertiesPrefixer.getPrefix(environment);
 
-		this.environment.setProperty(prefix + "config.enabled", "false");
+		this.environment.setProperty(prefix + ".config.enabled", "false");
 		assertThat(
 				this.resolver.isResolvable(this.context, ConfigDataLocation.of("nacos:")))
 						.isFalse();

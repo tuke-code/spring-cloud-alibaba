@@ -124,7 +124,7 @@ public class NacosConfigDataLocationResolver
 		String prefix = NacosPropertiesPrefixer.getPrefix(context.getBinder());
 
 		return context.getBinder()
-				.bind(prefix + "config.enabled", Boolean.class)
+				.bind(prefix + ".config.enabled", Boolean.class)
 				.orElse(true);
 	}
 
